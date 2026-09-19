@@ -130,3 +130,47 @@ kubectl apply -f k8s/argocd-app.yaml
   ```bash
   locust -f locustfile.py
   ```
+
+
+
+# IPYNB File - Handwritten Digit Classifier with a CNN (MNIST)
+
+Building a Convolutional Neural Network (CNN) trained from scratch (random initialization) on the MNIST dataset, comparing it under identical conditions with a classic Multi-Layer Perceptron (MLP) baseline, and testing the model on entirely new, real-world handwritten digits.
+
+## ✨ Project Features
+
+* [x] **Data Pipeline:** The MNIST dataset is loaded using a standard loader, normalized, and explicitly split into 3 sets: Train / Validation / Test.
+* [x] **CNN Architecture:** Designed from scratch, containing at least 2 Convolution+Pooling blocks followed by fully-connected (Dense) layers. (No pretrained weights were used).
+* [x] **MLP Baseline Comparison:** A simple fully-connected network trained on the exact same data, splits, and number of epochs for a fair comparison.
+* [x] **Training Curves:** Loss and accuracy plots per epoch for both the CNN and MLP.
+* [x] **Confusion Matrix:** Computed on the test data. The most confused digit pair is identified along with a hypothesis for the cause.
+* [x] **Custom Image Test:** The model is tested on 5 real-world photographed/drawn digit images not present in MNIST, with the image preprocessing (resize, grayscale, invert) shown step-by-step.
+* [x] **Model Persistence:** Trained weights are saved to disk (e.g., `.onnx` or `.pt`) and successfully loaded in another script for inference without retraining.
+* [x] **Data Augmentation:** Image rotation and shift are applied, and their impact on validation accuracy is demonstrated.
+* [x] **Filter Visualization:** The learned feature filters of the first Convolutional (Conv1) layer are visualized.
+* [x] **Regularization:** Dropout and Batch Normalization are added, and the results of regularized vs. unregularized models are compared.
+* [x] **API Endpoint (FastAPI):** A small FastAPI/Flask server is set up that accepts an uploaded image and returns the predicted digit.
+
+## 🏗️ CNN Model Architecture
+
+The model consists of the following layers and uses 2 main blocks for feature extraction:
+
+| Layer | Type | Parameters / Output Shape | Activation |
+| --- | --- | --- | --- |
+| **Input** | Image | `(28, 28, 1)` | - |
+| **Block 1** | Conv2D | 32 filters, 3x3 kernel | ReLU |
+|  | MaxPooling2D | 2x2 pool size | - |
+|  | Batch Normalization | - | - |
+| **Block 2** | Conv2D | 64 filters, 3x3 kernel | ReLU |
+|  | MaxPooling2D | 2x2 pool size | - |
+|  | Batch Normalization | - | - |
+| **Flatten** | Flatten | 1D Vector | - |
+| **Dense Head** | Dense | 128 neurons | ReLU |
+|  | Dropout | Rate = 0.5 (To prevent overfitting) | - |
+| **Output** | Dense | 10 neurons (Digits 0-9) | Softmax |
+
+## 📊 Key Results and Analysis
+
+* **CNN vs MLP Comparison:** Because the convolution blocks better learn spatial features and edges, the CNN model demonstrated noticeably higher accuracy and less tendency to overfit compared to the MLP.
+* **Most Confused Digits (Confusion Matrix Analysis):** (Sample note) The most frequently confused digits by the model are the **4 and 9** pair. Hypothesis: When the top part of a handwritten "4" is joined, it visually closely resembles the circular shape of a "9".
+* **Real-World Custom Image Test:** 5 digits written on real paper and photographed with a phone were first resized to 28x28 pixels, converted to Grayscale, and their colors were inverted (white digit on a black background, like MNIST). The model demonstrated high predictive power on these images.
