@@ -34,7 +34,7 @@ jobs:
     - name: Generate TensorFlow model
       run: |
         mkdir -p models
-        python path/to/your_training_script.py
+        python retraining_pipeline.py
         test -f models/tensorflow_cnn.keras
 
     - name: Run tests with pytest
