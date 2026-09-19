@@ -1,0 +1,7 @@
+# helm/mnist-api/Chart.yaml
+apiVersion: v2
+name: mnist-api-chart
+description: A Helm chart for MNIST FastAPI MLOps Service
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

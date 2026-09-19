@@ -1,0 +1,89 @@
+# 1. Python & Virtual Environment
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+venv/
+.venv/
+env/
+.env
+
+# 2. Machine Learning Models & Data
+*.keras
+*.pt
+*.pth
+*.onnx
+*.h5
+*.hdf5
+*.npz
+*.csv
+*.dat
+
+/models/*
+!/models/*.dvc
+!/models/.gitignore
+
+# 3. DVC (Data Version Control) Cache
+.dvc/cache
+.dvc/tmp
+/data/*
+!/data/*.dvc
+!/data/.gitignore
+
+# 4. MLOps, MLflow & Logs
+mlruns/
+*.log
+*.html  # Evidently AI drift reportları üçün (model_drift_report.html və s.)
+.prefect/
+
+# 5. Testing & Profiling
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# 6. Jupyter Notebooks
+.ipynb_checkpoints
+profile_default/
+ipython_config.py
+
+
+# 7. OS & IDE / Editor Faylları
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.devcontainer/

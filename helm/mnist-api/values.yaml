@@ -1,0 +1,23 @@
+# helm/mnist-api/values.yaml
+replicaCount: 3
+
+image:
+  repository: mnist-fastapi-backend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 8000
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "200m"
+    memory: "256Mi"
+
+
+# helm install mnist-release ./helm/mnist-api

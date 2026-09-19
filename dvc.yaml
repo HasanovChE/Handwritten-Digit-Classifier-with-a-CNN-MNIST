@@ -1,0 +1,19 @@
+# dvc.yaml
+stages:
+  train:
+    cmd: python retraining_pipeline.py
+    deps:
+      - retraining_pipeline.py
+    outs:
+      - tensorflow_cnn.keras
+
+# 1
+# pip install dvc
+# dvc init
+
+# 2
+# dvc add tensorflow_cnn.keras
+
+# 3
+# git add dvc.yaml tensorflow_cnn.keras.dvc .dvc/ignore
+# git commit -m "Setup DVC pipeline for model artifact tracking"

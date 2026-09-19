@@ -1,0 +1,49 @@
+# MNIST Dual-Framework MLOps 
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# 1. Deep Learning Frameworks
+torch>=2.0.0
+torchvision>=0.15.0
+tensorflow>=2.14.0
+
+# 2. Backend API & Web UI
+fastapi>=0.104.0
+uvicorn[standard]>=0.23.0
+python-multipart>=0.0.6  # FastAPI UploadFile
+streamlit>=1.28.0
+requests>=2.31.0
+httpx>=0.25.0            # Pytest
+
+# 3. Data Processing & Visualization
+numpy>=1.24.0
+pandas>=2.0.0
+Pillow>=10.0.0
+matplotlib>=3.7.0
+
+# 4. Model Optimization (ONNX)
+tf2onnx>=1.15.0
+onnx>=1.14.0
+onnxruntime>=1.16.0
+
+# 5. MLOps, Experiment Tracking & Version Control
+dvc>=3.0.0
+mlflow>=2.8.0
+prefect>=2.14.0
+
+# 6. Monitoring & Drift Detection
+evidently>=0.4.0
+prometheus-fastapi-instrumentator>=6.0.0
+
+# 7. Testing & Quality Assurance
+pytest>=7.4.0
+locust>=2.19.0
+
+# 8. Distributed Tracing & Observability (OpenTelemetry)
+opentelemetry-api>=1.20.0
+opentelemetry-sdk>=1.20.0
+opentelemetry-instrumentation-fastapi>=0.41b0
+opentelemetry-exporter-otlp>=1.20.0
+
+# 9. Development & Codespaces Utilities
+jupyter>=1.0.0
+ipykernel>=6.25.0

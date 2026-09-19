@@ -1,0 +1,45 @@
+# k8s/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mnist-api-deployment
+  labels:
+    app: mnist-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mnist-api
+  template:
+    metadata:
+      labels:
+        app: mnist-api
+    spec:
+      containers:
+      - name: mnist-api
+        image: mnist-fastapi-backend:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+
+---
+# k8s/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: mnist-api-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: mnist-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
