@@ -1,3 +1,4 @@
+from pathlib import Path
 from fastapi import FastAPI, UploadFile, File
 import numpy as np
 from PIL import Image, ImageOps
@@ -8,7 +9,20 @@ app = FastAPI(title="MNIST Digit Classifier API")
 
 Instrumentator().instrument(app).expose(app)
 
-model = tf.keras.models.load_model("models/tensorflow_cnn.keras")
+MODEL_PATH = (
+    Path(__file__).resolve().parent.parent
+    / "models"
+    / "tensorflow_cnn.keras"
+)
+
+if not MODEL_PATH.is_file():
+    raise FileNotFoundError(
+        f"Model file not found: {MODEL_PATH}. "
+        "Generate or download models/tensorflow_cnn.keras before starting the API."
+    )
+
+model = tf.keras.models.load_model(MODEL_PATH)
+
 
 def preprocess_image(image):
     image = image.convert("L")

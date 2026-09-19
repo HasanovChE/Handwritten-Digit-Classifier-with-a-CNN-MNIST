@@ -12,8 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out repository
+    - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        lfs: true
+
+    - name: Pull model artifacts
+      run: git lfs pull
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -25,7 +30,15 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install pytest httpx
+
+    - name: Generate TensorFlow model
+      run: |
+        mkdir -p models
+        python path/to/your_training_script.py
+        test -f models/tensorflow_cnn.keras
 
     - name: Run tests with pytest
-      run: PYTHONPATH=. pytest
+      run: PYTHONPATH=. pytest -q
+
+
+        
