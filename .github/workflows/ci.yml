@@ -2,13 +2,15 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
+
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     env:
       PYTHONPATH: ${{ github.workspace }}
       MODEL_PATH: ${{ github.workspace }}/models/tensorflow_cnn.keras
@@ -22,13 +24,14 @@ jobs:
           lfs: true
 
       - name: Pull model artifacts
-        run: git lfs pull
+        run: |
+          git lfs pull
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-          cache: 'pip'
+          cache: pip
 
       - name: Install dependencies
         run: |
@@ -37,11 +40,22 @@ jobs:
 
       - name: Generate TensorFlow model
         run: |
+          set -eux
           mkdir -p models
+          echo "MODEL_PATH=$MODEL_PATH"
+          echo "Running retraining pipeline..."
+          
           python retraining_pipeline.py
+          echo "Retraining finished."
+          echo "Models directory:"
+          find models -maxdepth 2 -type f -ls
+          echo "Checking model..."
           test -s "$MODEL_PATH"
-          ls -l "$MODEL_PATH"
+          echo "Model exists:"
+          ls -lh "$MODEL_PATH"
 
       - name: Run tests with pytest
+      
         run: |
+          set -eux
           pytest -vv --tb=long --maxfail=1
